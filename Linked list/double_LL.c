@@ -31,6 +31,30 @@ void append_double_LL(DLL_st *L_List, int x)
     newnode->previous = temp;
 }
 
+void pop_double_LL(DLL_st *L_List)
+{
+    int flag = 0;
+    if(L_List->head == NULL)
+    {
+        printf("Nothing to pop\n");
+        return;
+    }
+    DLL_node_st *temp = L_List->head;
+    DLL_node_st *temp2 = L_List->head;
+    while(temp->next != NULL)
+    {
+        if(flag == 1)
+        {
+            temp2 = temp2->next;
+        }
+        temp = temp->next;
+        flag = 1;
+    }
+    free(temp);
+    temp2->next = NULL;
+    L_List->length--;
+}
+
 void print_double_LL(DLL_st *L_List)
 {
     DLL_node_st *temp = L_List->head;
