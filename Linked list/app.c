@@ -3,28 +3,25 @@
 
 int main()
 {
-    DLL_st list1;
-    create_double_LL(&list1);
-    for(int i=0; i<10; i++)
-        append_double_LL(&list1, i);
-    print_double_LL(&list1);
+    SLL_st list1;
+    create_single_LL(&list1);
+    for(int i=1; i<=5; i++)
+        append_single_LL(&list1, i);
+    print_single_LL(&list1);
 
-    /*pop_double_LL(&list1);
-    pop_double_LL(&list1);
-    print_double_LL(&list1);
-
-    remove_double_LL(&list1, 3);
-    remove_double_LL(&list1, 3);
-    print_double_LL(&list1);*/
-
-    insert_double_LL(&list1, 100, 0);
-    insert_double_LL(&list1, 101, 10);
-    insert_double_LL(&list1, 102, 11);
-    insert_double_LL(&list1, 999, 50);
-    insert_double_LL(&list1, 115, -50);
-    print_double_LL(&list1);
-
-    delete_double_LL(&list1);
+    printf("\nmin = %d\nmax = %d\ntotal = %d\nlength = %d\n", list1.min, list1.max, list1.total, list1.length);
+    append_single_LL(&list1, 10);
+    print_single_LL(&list1);
+    printf("\nmin = %d\nmax = %d\ntotal = %d\nlength = %d\n", list1.min, list1.max, list1.total, list1.length);
+    insert_single_LL(&list1, 20, 3);
+    print_single_LL(&list1);
+    printf("\nmin = %d\nmax = %d\ntotal = %d\nlength = %d\n", list1.min, list1.max, list1.total, list1.length);
+    pop_single_LL(&list1);
+    print_single_LL(&list1);
+    printf("\nmin = %d\nmax = %d\ntotal = %d\nlength = %d\n", list1.min, list1.max, list1.total, list1.length);
+    remove_single_LL(&list1, 1);
+    print_single_LL(&list1);
+    printf("\nmin = %d\nmax = %d\ntotal = %d\nlength = %d\n", list1.min, list1.max, list1.total, list1.length);
     
     return 0;
 }

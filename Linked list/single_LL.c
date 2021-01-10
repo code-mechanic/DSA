@@ -2,9 +2,27 @@
 #include <stdlib.h>
 #include "single_LL.h"
 
+void findMinMax(SLL_st *L_List)
+{
+    SLL_node_st *temp = L_List->head;
+    int max_data = temp->data;
+    int min_data = temp->data;
+    while(temp != NULL)
+    {
+        if(temp->data > max_data) max_data = temp->data;
+        if(temp->data < min_data) min_data = temp->data;
+        temp = temp->next;
+    }
+    L_List->max = max_data;
+    L_List->min = min_data;
+}
+
 void create_single_LL(SLL_st *L_list)
 {
     L_list->length = 0;
+    L_list->max = 0;
+    L_list->min = INT_MAX;
+    L_list->total = 0;
     (L_list->head) = NULL;
 }
 
@@ -12,6 +30,7 @@ void append_single_LL(SLL_st *L_List, int x)
 {
     SLL_node_st *newnode = (SLL_node_st*)malloc(sizeof(SLL_node_st));
     L_List->length++;
+    L_List->total += x; 
     newnode->data = x;
     newnode->next = NULL;
 
@@ -27,6 +46,7 @@ void append_single_LL(SLL_st *L_List, int x)
         temp = temp->next;
     }
     temp->next = newnode;
+    findMinMax(L_List);
 }
 
 void pop_single_LL(SLL_st *L_List)
@@ -43,9 +63,11 @@ void pop_single_LL(SLL_st *L_List)
         temp1 = temp1->next;
         count = 1;
     }
+    L_List->total -= temp1->data;
     free(temp1);
     temp2->next = NULL;
     L_List->length--;
+    findMinMax(L_List);
 }
 
 void insert_single_LL(SLL_st *L_List, int x, int pos)
@@ -63,6 +85,7 @@ void insert_single_LL(SLL_st *L_List, int x, int pos)
 
     SLL_node_st *newnode = (SLL_node_st*)malloc(sizeof(SLL_node_st));
     L_List->length++;
+    L_List->total += x;
     newnode->data = x;
 
     if(L_List->head == NULL)
@@ -84,6 +107,7 @@ void insert_single_LL(SLL_st *L_List, int x, int pos)
         temp1->next = newnode;
         newnode->next = temp2;
     }
+    findMinMax(L_List);
 }
 
 void remove_single_LL(SLL_st *L_List, int pos)
@@ -111,9 +135,11 @@ void remove_single_LL(SLL_st *L_List, int pos)
         temp1 = temp1->next;
     }
     temp2 = temp1->next->next;
+    L_List->total -= temp1->next->data;
     free(temp1->next);
     temp1->next = temp2;
     L_List->length--;
+    findMinMax(L_List);
 }
 
 void print_single_LL(SLL_st *L_List)
@@ -138,4 +164,7 @@ void delete_single_LL(SLL_st *L_List)
         temp = L_List->head;
     }
     L_List->length = 0;
+    L_List->total = 0;
+    L_List->max = 0;
+    L_List->min = 0;
 }

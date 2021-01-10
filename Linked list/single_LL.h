@@ -10,6 +10,9 @@ typedef struct Snode_s
 typedef struct
 {
     unsigned int length;
+    int max;
+    int min;
+    int total; 
     SLL_node_st *head;
 }SLL_st;
 
