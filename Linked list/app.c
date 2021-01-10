@@ -13,11 +13,17 @@ int main()
     /*insert_single_LL(&list1, 100, 2);
     insert_single_LL(&list1, 101, 10);
     insert_single_LL(&list1, 102, -2);
-    print_single_LL(&list1);*/
+    print_single_LL(&list1);
     pop_single_LL(&list1);
-    pop_single_LL(&list1);
+    pop_single_LL(&list1);*/
+
+    remove_single_LL(&list1, 1);
+    print_single_LL(&list1);
+    remove_single_LL(&list1, 1);
+
     print_single_LL(&list1);
     printf("Length of list = %d\n", list1.length);
+
     delete_single_LL(&list1);
     return 0;
 }

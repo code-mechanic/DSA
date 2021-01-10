@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include "single_LL.h"
 
 void create_single_LL(SLL_st *L_list)
@@ -85,6 +84,36 @@ void insert_single_LL(SLL_st *L_List, int x, int pos)
         temp1->next = newnode;
         newnode->next = temp2;
     }
+}
+
+void remove_single_LL(SLL_st *L_List, int pos)
+{
+    if(pos > L_List->length)
+    {
+        printf("FATAL : Specified position %d is greater than List length %d\n", pos, L_List->length);
+        return;
+    }
+    else if(pos < 0)
+    {
+        printf("FATAL : Specified position is less than 0\n");
+        return;
+    }
+
+    if(L_List->head == NULL)
+    {
+        printf("Nothing to remove\n");
+    }
+
+    SLL_node_st *temp1 = L_List->head;
+    SLL_node_st *temp2 = L_List->head;
+    for(int i=0; i<pos-1; i++)
+    {
+        temp1 = temp1->next;
+    }
+    temp2 = temp1->next->next;
+    free(temp1->next);
+    temp1->next = temp2;
+    L_List->length--;
 }
 
 void print_single_LL(SLL_st *L_List)
