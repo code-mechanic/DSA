@@ -30,6 +30,25 @@ void append_single_LL(SLL_st *L_List, int x)
     temp->next = newnode;
 }
 
+void pop_single_LL(SLL_st *L_List)
+{
+    SLL_node_st *temp1 = L_List->head;
+    SLL_node_st *temp2 = L_List->head;
+    int count = 0;
+    while(temp1->next != NULL)
+    {
+        if(count == 1)
+        {
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+        count = 1;
+    }
+    free(temp1);
+    temp2->next = NULL;
+    L_List->length--;
+}
+
 void insert_single_LL(SLL_st *L_List, int x, int pos)
 {
     if(pos > L_List->length)
