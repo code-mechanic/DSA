@@ -17,6 +17,7 @@ typedef struct
 void create_double_LL(DLL_st *L_List);
 void append_double_LL(DLL_st *L_List, int x);
 void pop_double_LL(DLL_st *L_List);
+void insert_double_LL(DLL_st *L_List, int x, int pos);
 void remove_double_LL(DLL_st *L_List, int pos);
 void print_double_LL(DLL_st *L_List);
 void delete_double_LL(DLL_st *L_List);

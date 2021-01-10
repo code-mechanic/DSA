@@ -55,6 +55,46 @@ void pop_double_LL(DLL_st *L_List)
     L_List->length--;
 }
 
+void insert_double_LL(DLL_st *L_List, int x, int pos)
+{
+    if(pos > L_List->length)
+    {
+        printf("Specified position %d is greater than List length %d\n", pos, L_List->length);
+        return;
+    }
+    else if(pos < 0)
+    {
+        printf("Specified position is less than zero\n");
+        return;
+    }
+
+    DLL_node_st *newnode = (DLL_node_st*)malloc(sizeof(DLL_node_st));
+    L_List->length++;
+    newnode->data = x;
+    
+    if(pos == 0)
+    {
+        L_List->head->previous = newnode;
+        newnode->previous = NULL;
+        newnode->next = L_List->head;
+        L_List->head = newnode;
+    }
+    else
+    {
+        DLL_node_st *temp1 = L_List->head;
+        DLL_node_st *temp2 = L_List->head;
+        for(int i=0; i<pos-1; i++)
+        {
+            temp1 = temp1->next;
+        }
+        temp2 = temp1->next;
+        temp1->next = newnode;
+        newnode->next = temp2;
+        temp2->previous = newnode;
+        newnode->previous = temp1;
+    }
+}
+
 void remove_double_LL(DLL_st *L_List, int pos)
 {
     if(pos > L_List->length)
