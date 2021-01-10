@@ -1,10 +1,10 @@
 #ifndef _SINGLE_LL_H
 #define _SINGLE_LL_H
 
-typedef struct node_s
+typedef struct Snode_s
 {
     int data;
-    struct node_s *next;
+    struct Snode_s *next;
 }SLL_node_st;
 
 typedef struct
