@@ -23,7 +23,7 @@ void push_stack(stack_st *stack, int x)
     }
     else
     {
-        newnode->next = (s_node_st*)stack->head;
+        newnode->next = stack->head;
         stack->head = newnode;
     }
     

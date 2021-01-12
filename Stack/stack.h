@@ -4,14 +4,14 @@
 typedef struct s_node
 {
     int data;
-    struct S_node *next;
+    struct s_node *next;
 }s_node_st;
 
 typedef struct
 {
+    s_node_st *head;
     unsigned int length;
     int top;
-    s_node_st *head;
 }stack_st;
 
 void create_stack(stack_st *stack);
