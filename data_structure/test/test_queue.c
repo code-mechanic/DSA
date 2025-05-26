@@ -4,6 +4,8 @@
 
 static void test_queue_circular_array(void);
 static void test_queue_circular_sll(void);
+static void test_double_ended_queue_circular_array(void);
+static void queue_circular_array_print(const QueueCircularArray *queue);
 
 int main()
 {
@@ -12,6 +14,9 @@ int main()
 
     printf("\nTesting Circular Singly Linked List Queue Implementation:\n");
     test_queue_circular_sll();
+
+    printf("Testing Circular Array double Ended Queue Implementation:\n");
+    test_double_ended_queue_circular_array();
 
     return 0;
 }
@@ -94,4 +99,60 @@ static void test_queue_circular_sll(void)
     // Test clearing the queue
     queue_circular_sll_clear(&queue);
     printf("Circular singly linked list queue cleared.\n");
+}
+
+static void test_double_ended_queue_circular_array(void)
+{
+    QueueCircularArray queue;
+    queue_circular_array_init(&queue);
+    
+    queue_circular_array_enqueue_front(&queue, 1);
+    queue_circular_array_enqueue_front(&queue, 2);
+    queue_circular_array_enqueue_front(&queue, 3);
+    queue_circular_array_enqueue_front(&queue, 4);
+
+    queue_circular_array_enqueue_rear(&queue, 5);
+    queue_circular_array_enqueue_rear(&queue, 6);
+    queue_circular_array_enqueue_rear(&queue, 7);
+    queue_circular_array_enqueue_rear(&queue, 8);
+
+    /* At this point queue should be {4, 3, 2, 1, 5, 6, 7, 8} */
+    queue_circular_array_print(&queue);
+
+    queue_circular_array_dequeue_front(&queue);
+    queue_circular_array_dequeue_rear(&queue);
+    
+    /* After dequeue operations, queue should be {3, 2, 1, 5, 6, 7} */
+    queue_circular_array_print(&queue);
+    
+    queue_circular_array_dequeue_front(&queue);
+    queue_circular_array_dequeue_front(&queue);
+    queue_circular_array_print(&queue);
+
+    queue_circular_array_dequeue_rear(&queue);
+    queue_circular_array_dequeue_rear(&queue);
+    queue_circular_array_print(&queue);
+
+    queue_circular_array_dequeue_front(&queue);
+    queue_circular_array_dequeue_front(&queue);
+    queue_circular_array_print(&queue);
+}
+
+static void queue_circular_array_print(const QueueCircularArray *queue)
+{
+    if (!queue) {
+        printf("Queue is NULL.\n");
+        return;
+    }
+
+    if (queue_circular_array_is_empty(queue)) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    printf("Queue elements: ");
+    for (uint32_t i = 0; i < queue->size; i++) {
+        printf("%d ", queue->data[(queue->front + i) % QUEUE_CIRCULAR_ARRAY_MAX_SIZE]);
+    }
+    printf("\n");
 }

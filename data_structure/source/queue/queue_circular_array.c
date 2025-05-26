@@ -110,3 +110,51 @@ void queue_circular_array_clear(QueueCircularArray *queue)
         queue->data[i] = 0; // Optionally reset the data array to zero
     }
 }
+
+void queue_circular_array_enqueue_front(QueueCircularArray *queue, int value)
+{
+    /* Input argument check */
+    if (!queue) {
+        fprintf(stderr, "Queue is NULL: Cannot enqueue onto a NULL queue.\n");
+        return; // Handle NULL queue pointer
+    }
+
+    if (queue_circular_array_is_full(queue)) {
+        fprintf(stderr, "Queue overflow: Cannot enqueue %d onto full queue.\n", value);
+        return; // Handle queue overflow
+    }
+
+    queue->front = (queue->front - 1 + QUEUE_CIRCULAR_ARRAY_MAX_SIZE) % QUEUE_CIRCULAR_ARRAY_MAX_SIZE; // Update front index circularly
+    queue->data[queue->front] = value; // Add the value to the front of the queue
+    queue->size++; // Increment the size of the queue
+}
+
+void queue_circular_array_enqueue_rear(QueueCircularArray *queue, int value)
+{
+    queue_circular_array_enqueue(queue, value); // Use the existing enqueue function for rear insertion
+}
+
+int queue_circular_array_dequeue_front(QueueCircularArray *queue)
+{
+    return queue_circular_array_dequeue(queue);
+}
+
+int queue_circular_array_dequeue_rear(QueueCircularArray *queue)
+{
+    /* Input argument check */
+    if (!queue) {
+        fprintf(stderr, "Queue is NULL: Cannot dequeue from a NULL queue.\n");
+        return -1; // Handle NULL queue pointer
+    }
+
+    if (queue_circular_array_is_empty(queue)) {
+        fprintf(stderr, "Queue underflow: Cannot dequeue from an empty queue.\n");
+        return -1; // Handle queue underflow
+    }
+
+    queue->rear = (queue->rear - 1 + QUEUE_CIRCULAR_ARRAY_MAX_SIZE) % QUEUE_CIRCULAR_ARRAY_MAX_SIZE; // Update rear index circularly
+    int value = queue->data[queue->rear]; // Get the value at the rear of the queue
+    queue->size--; // Decrement the size of the queue
+
+    return value; // Return the dequeued value
+}
