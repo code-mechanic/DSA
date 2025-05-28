@@ -134,3 +134,78 @@ void queue_circular_sll_clear(QueueCircularSLL *queue)
     queue->rear = NULL;  // Reset rear to NULL
     queue->size = 0;     // Reset size to 0
 }
+
+void queue_circular_sll_enqueue_front(QueueCircularSLL *queue, int value)
+{
+    /* Input argument check */
+    if (!queue) {
+        fprintf(stderr, "Queue is NULL: Cannot enqueue front onto a NULL queue.\n");
+        return; // Handle NULL queue pointer
+    }
+
+    if (queue_circular_sll_is_full(queue)) {
+        fprintf(stderr, "Queue overflow: Cannot enqueue %d onto full queue.\n", value);
+        return; // Handle queue overflow
+    }
+
+    QueueNode *new_node = (QueueNode *)malloc(sizeof(QueueNode));
+    if (!new_node) {
+        fprintf(stderr, "Memory allocation failed: Cannot enqueue %d at front.\n", value);
+        return; // Handle memory allocation failure
+    }
+
+    new_node->value = value;
+
+    if (queue->size == 0) {
+        new_node->next = new_node; // Point to itself to make it circular
+        queue->front = new_node;
+        queue->rear = new_node;
+    } else {
+        new_node->next = queue->front; // Point new node to current front
+        queue->rear->next = new_node;   // Link rear to the new node
+        queue->front = new_node;         // Update front to the new node
+    }
+
+    queue->size++; // Increment the size of the queue
+}
+
+void queue_circular_sll_enqueue_rear(QueueCircularSLL *queue, int value)
+{
+    queue_circular_sll_enqueue(queue, value); // Use the existing enqueue function for rear
+}
+
+int queue_circular_sll_dequeue_front(QueueCircularSLL *queue)
+{
+    return queue_circular_sll_dequeue(queue); // Use the existing dequeue function for front
+}
+
+int queue_circular_sll_dequeue_rear(QueueCircularSLL *queue)
+{
+    /* Input argument check */
+    if (!queue) {
+        fprintf(stderr, "Queue is NULL: Cannot dequeue rear from a NULL queue.\n");
+        return -1; // Handle NULL queue pointer
+    }
+
+    if (queue_circular_sll_is_empty(queue)) {
+        fprintf(stderr, "Queue underflow: Cannot dequeue rear from an empty queue.\n");
+        return -1; // Handle queue underflow
+    }
+
+    if (queue->size == 1) {
+        return queue_circular_sll_dequeue(queue); // If only one element, use the existing dequeue function
+    }
+
+    QueueNode *current = queue->front;
+    while (current->next != queue->rear) {
+        current = current->next; // Traverse to the second last node
+    }
+
+    int value = queue->rear->value; // Get the value of the rear node
+    free(queue->rear); // Free the rear node
+    queue->rear = current; // Update rear to the second last node
+    queue->rear->next = queue->front; // Make it circular again
+    queue->size--; // Decrement the size of the queue
+
+    return value; // Return the dequeued value from the rear
+}

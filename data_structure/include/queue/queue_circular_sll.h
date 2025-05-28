@@ -16,6 +16,7 @@ typedef struct {
     uint32_t size;    // Number of elements in the queue
 } QueueCircularSLL;
 
+/* Classic queue operations */
 void queue_circular_sll_init(QueueCircularSLL *queue);
 /* Similar to csll_insert_at_end() */
 void queue_circular_sll_enqueue(QueueCircularSLL *queue, int value);
@@ -26,4 +27,9 @@ int queue_circular_sll_is_empty(const QueueCircularSLL *queue);
 int queue_circular_sll_is_full(const QueueCircularSLL *queue);
 void queue_circular_sll_clear(QueueCircularSLL *queue);
 
+/* Double Ended queue (DEque) operations */
+void queue_circular_sll_enqueue_front(QueueCircularSLL *queue, int value);
+void queue_circular_sll_enqueue_rear(QueueCircularSLL *queue, int value);
+int queue_circular_sll_dequeue_front(QueueCircularSLL *queue);
+int queue_circular_sll_dequeue_rear(QueueCircularSLL *queue);
 #endif // QUEUE_CIRCULAT_SLL_H
