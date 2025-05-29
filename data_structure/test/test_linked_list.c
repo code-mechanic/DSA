@@ -30,6 +30,7 @@ int main()
 static void test_singly_linked_list(void)
 {
     sll_t *sll = sll_create(0);
+    sll_node_t *nth_node = NULL;
 
     for(int i = 0; i < 10; i++) {
         if(sll_insert_at_front(&sll, i) != SLL_SUCCESS) { printf("Failed to insert at front\n"); }
@@ -60,7 +61,37 @@ static void test_singly_linked_list(void)
 
     if (sll_destroy(&sll) != SLL_SUCCESS) { printf("Failed to destroy sll\n"); }
     if(sll == NULL) {
-        printf("SLL destroyed successfully\n");
+        printf("\nSLL destroyed successfully\n\n");
+    }
+
+    sll = sll_create(100);
+    sll_insert_at_back(&sll, 200);
+    sll_insert_at_back(&sll, 300);
+    sll_insert_at_back(&sll, 400);
+    sll_insert_at_back(&sll, 500);
+    sll_insert_at_back(&sll, 600);
+    sll_insert_at_back(&sll, 700);
+    sll_insert_at_back(&sll, 800);
+    sll_insert_at_back(&sll, 900);
+    sll_insert_at_back(&sll, 1000);
+    printf("\nGetting nth node data from end:\n");
+    nth_node = sll_get_nth_node_from_end(&sll, 1); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 2); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 3); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 4); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 5); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 6); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 7); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 8); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 9); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    nth_node = sll_get_nth_node_from_end(&sll, 10);if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+    // Testing with an index greater than the size of the list
+    printf("\nTrying to get nth node data from end with index greater than size:\n");
+    nth_node =sll_get_nth_node_from_end(&sll, 120); if(nth_node != NULL) { printf("%d ", nth_node->data); } else { printf("NULL "); }
+
+    if (sll_destroy(&sll) != SLL_SUCCESS) { printf("Failed to destroy sll\n"); }
+    if(sll == NULL) {
+        printf("\nSLL destroyed successfully\n\n");
     }
 }
 
